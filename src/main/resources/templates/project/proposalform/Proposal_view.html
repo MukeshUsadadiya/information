@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Proposal Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 900px;
+            margin-top: 30px;
+        }
+
+        .proposal-table {
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .proposal-table th, .proposal-table td {
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .proposal-header {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-100%); /* Initially positioned off-screen */
+            animation: slideInFromLeft 1s forwards;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Slide-in animation */
+        @keyframes slideInFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%); /* Off-screen */
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0); /* Slide to the original position */
+            }
+        }
+
+        /* Hover Effect for the Card */
+        .card:hover {
+            transform: translateY(-10px);  /* Slight lift when hovered */
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .btn {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        /* Button Hover Effect */
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Responsive for mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Project Proposal Details Card -->
+    <div class="card">
+        <div class="card-header">
+            <h2>Project Proposal Details</h2>
+        </div>
+        <div class="card-body">
+            <!-- Project Proposal Information Table -->
+            <table class="table table-bordered proposal-table">
+                <tbody>
+                <tr>
+                    <th>Project Title</th>
+                    <td th:text="${proposal.projectTitle}"></td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td th:text="${proposal.projectDescription}"></td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td th:text="${proposal.department}"></td>
+                </tr>
+                <tr>
+                    <th>Start Date</th>
+                    <td th:text="${proposal.startDate}"></td>
+                </tr>
+                <tr>
+                    <th>Estimated Budget</th>
+                    <td th:text="${proposal.estimatedBudget}"></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <!-- Action Buttons -->
+            <div class="text-center mt-4">
+                <a th:href="@{/form/download/project-proposal/{id}(id=${proposal.id})}" class="btn btn-secondary btn-lg me-2">
+                    Download Proposal as PDF
+                </a>
+                <a href="/viewProjectProposals" class="btn btn-primary btn-lg">
+                    Back to Proposal List
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Progress Update</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Edit Progress Update</h2>
+
+  <!-- Display Flash Message -->
+  <div th:if="${message}" class="alert alert-success" role="alert">
+    <span th:text="${message}"></span>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <form th:action="@{/updateProgressUpdate/{id}(id=${progressUpdate.id})}"
+            th:object="${progressUpdate}" method="post" enctype="multipart/form-data">
+
+        <!-- Milestone Title -->
+        <div class="mb-3">
+          <label for="milestoneTitle" class="form-label">Milestone Title</label>
+          <input type="text" class="form-control" id="milestoneTitle" th:field="*{milestoneTitle}" required>
+        </div>
+
+        <!-- Progress Description -->
+        <div class="mb-3">
+          <label for="progressDescription" class="form-label">Progress Description</label>
+          <textarea class="form-control" id="progressDescription" th:field="*{progressDescription}" rows="3" required></textarea>
+        </div>
+
+        <!-- Completion Percentage -->
+        <div class="mb-3">
+          <label for="completionPercentage" class="form-label">Completion Percentage</label>
+          <input type="number" class="form-control" id="completionPercentage" th:field="*{completionPercentage}" required>
+        </div>
+
+        <!-- Date of Update -->
+        <div class="mb-3">
+          <label for="dateOfUpdate" class="form-label">Date of Update</label>
+          <input type="date" class="form-control" id="dateOfUpdate" th:field="*{dateOfUpdate}" required>
+        </div>
+
+        <!-- Current Status -->
+        <div class="mb-3">
+          <label for="currentStatus" class="form-label">Current Status</label>
+          <input type="text" class="form-control" id="currentStatus" th:field="*{currentStatus}" required>
+        </div>
+
+        <!-- Display Current Attachment -->
+        <div class="mb-3">
+          <label for="file" class="form-label">Update Attachment</label>
+          <input type="file" class="form-control" id="file" name="file" accept=".pdf,.doc,.docx">
+        </div>
+
+        <!-- Submit and Cancel Buttons -->
+        <div class="mb-3 text-center">
+          <button type="submit" class="btn btn-primary">Update Progress</button>
+          <a href="/viewProgressUpdates" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

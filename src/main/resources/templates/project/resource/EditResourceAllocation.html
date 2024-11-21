@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Resource Allocation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2 th:text="${resourceAllocation.id == null ? 'Add New Resource Allocation' : 'Edit Resource Allocation'}"></h2>
+  <form th:action="@{/updateResourceAllocation/{id}(id=${resourceAllocation.id})}" th:object="${resourceAllocation}" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="resourceName" class="form-label">Resource Name</label>
+      <input type="text" id="resourceName" class="form-control" th:value="${resourceAllocation.resourceName}" name="resourceName" required>
+    </div>
+    <div class="mb-3">
+      <label for="quantityNeeded" class="form-label">Quantity Needed</label>
+      <input type="number" id="quantityNeeded" class="form-control" th:value="${resourceAllocation.quantityNeeded}" name="quantityNeeded" required>
+    </div>
+    <div class="mb-3">
+      <label for="resourceType" class="form-label">Resource Type</label>
+      <input type="text" id="resourceType" class="form-control" th:value="${resourceAllocation.resourceType}" name="resourceType" required>
+    </div>
+    <div class="mb-3">
+      <label for="allocationDate" class="form-label">Allocation Date</label>
+      <input type="date" id="allocationDate" class="form-control" th:value="${resourceAllocation.allocationDate}" name="allocationDate" required>
+    </div>
+    <div class="mb-3">
+      <label for="estimatedCost" class="form-label">Estimated Cost</label>
+      <input type="number" step="0.01" id="estimatedCost" class="form-control" th:value="${resourceAllocation.estimatedCost}" name="estimatedCost" required>
+    </div>
+    <div class="mb-3">
+      <label for="file" class="form-label">Upload Excel File</label>
+      <input type="file" id="file" class="form-control" name="file">
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Assign Forms</title>
+</head>
+<body>
+<h1>Assign Forms</h1>
+<form action="/assign" method="post">
+  <label for="user">Select User:</label>
+  <select name="user" id="user" required>
+    <option value="" disabled selected>Select a user</option>
+    <!-- Populate dropdown options with usernames -->
+    <option th:each="username : ${usernames}" th:value="${username}" th:text="${username}"></option>
+  </select>
+  <br><br>
+  <button type="submit">Assign Form</button>
+</form>
+
+<div>
+  <!-- Success or error message after form submission -->
+  <p th:if="${message}" th:text="${message}"></p>
+</div>
+</body>
+</html>

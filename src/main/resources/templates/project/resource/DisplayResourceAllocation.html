@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>All Resource Allocations</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <!-- Bootstrap Icons CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2 class="text-center">All Resource Allocations</h2>
+
+  <!-- Display Success or Error Messages -->
+  <div th:if="${message}" class="alert alert-success mt-3">
+    <p th:text="${message}"></p>
+  </div>
+  <div th:if="${errorMessage}" class="alert alert-danger mt-3">
+    <p th:text="${errorMessage}"></p>
+  </div>
+
+  <!-- Responsive Table Wrapper -->
+  <div class="table-responsive mt-3">
+    <table class="table table-striped">
+      <thead class="bg-primary text-dark">
+      <tr>
+        <th>#</th>
+        <th>Resource Name</th>
+        <th>Quantity Needed</th>
+        <th>Resource Type</th>
+        <th>Allocation Date</th>
+        <th>Estimated Cost</th>
+        <th>File</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="allocation : ${allocations}">
+        <td th:text="${allocation.id}">1</td>
+        <td th:text="${allocation.resourceName}">Resource Name</td>
+        <td th:text="${allocation.quantityNeeded}">Quantity Needed</td>
+        <td th:text="${allocation.resourceType}">Resource Type</td>
+        <td th:text="${allocation.allocationDate}">Allocation Date</td>
+        <td th:text="${allocation.estimatedCost}">Estimated Cost</td>
+        <td>
+          <a th:if="${allocation.filePath != null and !#strings.isEmpty(allocation.filePath)}"
+             th:href="@{/uploads/{filename}(filename=${allocation.filePath})}"
+             th:text="${allocation.filePath.substring(allocation.filePath.lastIndexOf('/') + 1)}"></a>
+          <span th:if="${allocation.filePath == null or #strings.isEmpty(allocation.filePath)}">No File</span>
+        </td>
+        <td class="d-flex justify-content-start">
+          <!-- Update Button -->
+          <a th:href="@{/editResourceAllocation/{id}(id=${allocation.id})}" class="btn btn-warning btn-sm me-2">
+            <i class="bi bi-pencil"></i>
+          </a>
+
+          <!-- Delete Button -->
+          <form th:action="@{/deleteResourceAllocation/{id}(id=${allocation.id})}" method="post" class="d-inline">
+            <button type="submit" class="btn btn-danger btn-sm">
+              <i class="bi bi-trash"></i>
+            </button>
+          </form>
+          <!-- Profile Button -->
+          <a th:href="@{/resource/{id}(id=${allocation.id})}" class="btn btn-info btn-sm">
+            <i class="bi bi-person"></i> Profile
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Button to return to Resource Allocation Form -->
+  <div class="text-center mt-4">
+    <a href="/resourceAllocationForm" class="btn btn-primary">Add New Resource Allocation</a>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
