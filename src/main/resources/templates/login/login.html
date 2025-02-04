@@ -53,6 +53,17 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+         a.button-link {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        background-color: #ff5722;
+        color: white;
+        border-radius: 4px;
+        text-decoration: none;
+        margin-top: 10px;
+    }
+
         button {
             width: 100%;
             padding: 10px;
@@ -87,6 +98,7 @@
       <input type="email" id="email" th:field="*{email}" required="required" placeholder="Enter your email" />
       <button type="submit">Send OTP</button>
     </form>
+    <a class="button-link" href="/register">New User? Register Here</a>
     <p th:if="${message}" th:text="${message}"></p>
   </div>
 </div>

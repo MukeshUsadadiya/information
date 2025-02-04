@@ -9,4 +9,5 @@ public interface UserLoginRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
     Optional<User> findByOtp(String otp);
+    Optional<User>findByUsername(String username);
 }

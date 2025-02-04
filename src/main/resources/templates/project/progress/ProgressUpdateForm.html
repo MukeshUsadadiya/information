@@ -1,123 +1,171 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Progress Update Form</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    body {
-        padding: 20px;
-    }
-    .slider {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 5px;
-        background: #ddd;
-        outline: none;
-        border-radius: 5px;
-    }
-    .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        background: #007bff;
-        border-radius: 50%;
-    }
-    .slider::-moz-range-thumb {
-        width: 25px;
-        height: 25px;
-        background: #007bff;
-        border-radius: 50%;
-    }
-    .form-label {
-        font-weight: bold;
-    }
-  </style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 700px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #000000;
+            font-weight: 600;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+
+        .form-control, .form-select, .slider {
+            width: 100%;
+            border: 1px solid #4a00e0;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .slider {
+            height: 5px;
+            background: #ddd;
+            outline: none;
+            appearance: none;
+            border-radius: 5px;
+        }
+
+        .slider::-webkit-slider-thumb, .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4a00e0;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .form-control:focus, .form-select:focus, .slider:focus {
+            border-color: #8e2de2;
+            box-shadow: 0 0 5px rgba(142, 45, 226, 0.5);
+            outline: none;
+        }
+
+        #percentageValue {
+            font-size: 16px;
+            text-align: center;
+            margin-top: -10px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background-color: #4a00e0;
+            border: none;
+            padding: 12px;
+            border-radius: 50px;
+            font-size: 16px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #8e2de2;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .btn-primary {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 <body>
+<div class="form-container">
+  <h2>Progress Update Form</h2>
 
-<div class="container">
-  <h2 class="mb-4 text-center">Progress Update Form</h2>
-
-  <!-- Display error message if any -->
+  <!-- Error Message -->
   <div th:if="${errorMessage}" class="alert alert-danger">
     <p th:text="${errorMessage}"></p>
   </div>
 
-  <!-- Form to submit progress update -->
+  <!-- Progress Update Form -->
   <form th:action="@{/submitProgressUpdate}" th:object="${progressUpdate}" method="post" enctype="multipart/form-data">
-    <!-- Milestone Title -->
-    <div class="mb-3 row">
-      <label for="milestoneTitle" class="col-sm-2 col-form-label">Milestone Title:</label>
-      <div class="col-sm-10">
-        <input type="text" id="milestoneTitle" class="form-control" th:field="*{milestoneTitle}" required/>
-      </div>
-    </div>
+    <label for="milestoneTitle" class="form-label">Milestone Title:</label>
+    <input type="text" id="milestoneTitle" class="form-control" th:field="*{milestoneTitle}" placeholder="Enter milestone title" required />
 
-    <!-- Progress Description -->
-    <div class="mb-3 row">
-      <label for="progressDescription" class="col-sm-2 col-form-label">Progress Description:</label>
-      <div class="col-sm-10">
-        <textarea id="progressDescription" class="form-control" th:field="*{progressDescription}" required></textarea>
-      </div>
-    </div>
+    <label for="progressDescription" class="form-label">Progress Description:</label>
+    <textarea id="progressDescription" class="form-control" th:field="*{progressDescription}" placeholder="Provide details about the progress" required></textarea>
 
-    <!-- Completion Percentage -->
-    <div class="mb-3 row">
-      <label for="completionPercentage" class="col-sm-2 col-form-label">Completion Percentage:</label>
-      <div class="col-sm-10">
-        <input type="range" id="completionPercentage" class="slider" th:field="*{completionPercentage}" min="0" max="100" step="1" required/>
-        <output id="percentageValue" th:text="*{completionPercentage}" class="form-control" style="text-align: center;">50</output>
-      </div>
-    </div>
+    <label for="completionPercentage" class="form-label">Completion Percentage:</label>
+    <input type="range" id="completionPercentage" class="slider" th:field="*{completionPercentage}" min="0" max="100" step="1" required />
+    <div id="percentageValue">50%</div>
 
-    <!-- Date of Update -->
-    <div class="mb-3 row">
-      <label for="dateOfUpdate" class="col-sm-2 col-form-label">Date of Update:</label>
-      <div class="col-sm-10">
-        <input type="date" id="dateOfUpdate" class="form-control" th:field="*{dateOfUpdate}" required/>
-      </div>
-    </div>
+    <label for="dateOfUpdate" class="form-label">Date of Update:</label>
+    <input type="date" id="dateOfUpdate" class="form-control" th:field="*{dateOfUpdate}" required />
 
-    <!-- Current Status -->
-    <div class="mb-3 row">
-      <label for="currentStatus" class="col-sm-2 col-form-label">Current Status:</label>
-      <div class="col-sm-10">
-        <select id="currentStatus" class="form-select" th:field="*{currentStatus}" required>
-          <option value="On Track">On Track</option>
-          <option value="At Risk">At Risk</option>
-          <option value="Delayed">Delayed</option>
-        </select>
-      </div>
-    </div>
+    <label for="currentStatus" class="form-label">Current Status:</label>
+    <select id="currentStatus" class="form-select" th:field="*{currentStatus}" required>
+      <option value="On Track">On Track</option>
+      <option value="At Risk">At Risk</option>
+      <option value="Delayed">Delayed</option>
+    </select>
 
-    <!-- Detailed Report (PDF/Excel) -->
-    <div class="mb-3 row">
-      <label for="file" class="col-sm-2 col-form-label">Detailed Report (PDF/Excel):</label>
-      <div class="col-sm-10">
-        <input type="file" id="file" name="file" class="form-control" accept=".pdf,.xlsx,.xls" required/>
-      </div>
-    </div>
+    <label for="file" class="form-label">Detailed Report (PDF/Excel):</label>
+    <input type="file" id="file" name="file" class="form-control" accept=".pdf,.xlsx,.xls" required />
 
-    <!-- Submit Button -->
-    <div class="mb-3 row">
-      <div class="col-sm-10 offset-sm-2">
-        <button type="submit" class="btn btn-primary">Submit Progress Update</button>
-      </div>
-    </div>
+    <button type="submit" class="btn-primary">Submit Progress Update</button>
   </form>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
-    // Update the output value based on the slider value
-    const slider = document.getElementById("completionPercentage");
-    const output = document.getElementById("percentageValue");
-    slider.oninput = function() {
-        output.textContent = this.value;
-    }
-</script>
-
+        // Update output for slider
+        const slider = document.getElementById("completionPercentage");
+        const output = document.getElementById("percentageValue");
+        slider.addEventListener("input", () => {
+            output.textContent = `${slider.value}%`;
+        });
+    </script>
 </body>
 </html>

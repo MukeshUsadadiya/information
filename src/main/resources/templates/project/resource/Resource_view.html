@@ -54,10 +54,15 @@
     }
 
     .card-header {
-      background-color: #007bff;
+      background-color: #4a00e0;
       color: white;
-      font-weight: bold;
+      font-weight: 600;
       text-align: center;
+      font-size: 24px; /* Medium Size Heading */
+      padding: 15px;
+      border-bottom: 3px solid #8e2de2;
+      text-transform: uppercase; /* Optional: Make the text uppercase */
+      letter-spacing: 1px; /* Optional: Space the letters */
     }
 
     .card-body {
@@ -65,28 +70,68 @@
     }
 
     .btn {
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 50px;
+      width: auto;
       transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      display: inline-block;
+      margin: 5px;
     }
 
-    /* Button Hover Effect */
-    .btn:hover {
+    /* Primary Button Color (Blue) */
+    .btn-primary {
+      background-color: #4a00e0;
+      color: white;
+      border: none;
+      text-decoration: none; /* Removes underline */
+    }
+
+    .btn-primary:hover {
+      background-color: #8e2de2;
       transform: scale(1.05);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
 
-    .btn:active {
+    .btn-primary:active {
       transform: scale(0.95);
     }
 
-    /* Responsive for mobile */
-    @media (max-width: 768px) {
-      .container {
-        padding: 15px;
-      }
+    /* Secondary Button Color (Green) */
+    .btn-secondary {
+      background-color: #28a745;
+      color: white;
+      border: none;
+    }
 
+    .btn-secondary:hover {
+      background-color: #218838;
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.95);
+    }
+
+    /* Align buttons */
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
       .card-body {
         padding: 20px;
       }
+    }
+
+    /* Table Styling */
+    .table-bordered th, .table-bordered td {
+      border: 1px solid #ddd;
     }
   </style>
 </head>
@@ -121,14 +166,13 @@
           <th>Estimated Cost</th>
           <td th:text="${allocation.estimatedCost}"></td>
         </tr>
-
         </tbody>
       </table>
 
       <!-- Action Buttons -->
       <div class="text-center mt-4">
         <a th:href="@{/form/download/resource-allocation/{id}(id=${allocation.id})}" class="btn btn-secondary btn-lg me-2">
-          Download Allocation as PDF
+          Download  as PDF
         </a>
         <a href="/viewResourceAllocations" class="btn btn-primary btn-lg">
           Back to Resource Allocation List

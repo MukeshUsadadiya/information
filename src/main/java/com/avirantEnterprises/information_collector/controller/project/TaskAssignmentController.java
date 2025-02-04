@@ -40,6 +40,7 @@ public class TaskAssignmentController {
         return "project/taskassignment/TaskAssignment";
     }
 
+
     @PostMapping("/taskAssign")
     public String createTaskAssignment(@RequestParam("taskName") String taskName,
                                        @RequestParam("description") String description,
@@ -50,13 +51,12 @@ public class TaskAssignmentController {
         try {
             taskAssignmentService.taskAssignment(taskName, description, assigneeName, String.valueOf(LocalDate.parse(dueDate)), priority, attachment);
             model.addAttribute("message", "Task assigned successfully!");
-            return "project/success";
+            return "project/taskassignment/success";
         } catch (IOException e) {
             model.addAttribute("errorMessage", "Could not upload attachment: " + e.getMessage());
             return "project/taskassignment/TaskAssignment";
         }
     }
-
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/tasks")
     public String viewAllTasks(Model model) {
@@ -75,7 +75,7 @@ public class TaskAssignmentController {
         return "project/taskassignment/DisplayTask";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping("/taskAssign/{id}")
     public String viewTaskDetails(@PathVariable Long id, Model model) {
         TaskAssignment taskAssignment=taskAssignmentService.getTaskById(id);
@@ -87,7 +87,7 @@ public class TaskAssignmentController {
         model.addAttribute("task", taskAssignment);
         return "project/taskassignment/Task_view";
     }
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping("/viewPdf/{filename:.+}")
     public ResponseEntity<org.springframework.core.io.Resource> displayPdf(@PathVariable String filename) {
         try {
@@ -110,7 +110,7 @@ public class TaskAssignmentController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping("/editTask/{id}")
     public String editTaskForm(@PathVariable("id") Long taskId, Model model) {
         TaskAssignment task = taskAssignmentService.getTaskById(taskId);
@@ -139,7 +139,7 @@ public class TaskAssignmentController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping("/deleteTask/{id}")
     public String deleteTask(@PathVariable("id") Long taskId, RedirectAttributes redirectAttributes) {
         try {

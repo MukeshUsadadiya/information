@@ -1,6 +1,7 @@
 package com.avirantEnterprises.information_collector.controller.project;
 
 import com.avirantEnterprises.information_collector.model.project.ProgressUpdate;
+import com.avirantEnterprises.information_collector.model.project.TaskAssignment;
 import com.avirantEnterprises.information_collector.service.project.ProgressUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -90,6 +91,17 @@ public class ProgressUpdateController {
         model.addAttribute("updates", updates);
         return "project/progress/DisplayProgressUpdate";
     }
+    @GetMapping("/progressView/{id}")
+    public String viewProgressDetails(@PathVariable Long id, Model model) {
+        ProgressUpdate progress=progressUpdateService.getProgressUpdateById(id);
+
+        if (progress == null) {
+            model.addAttribute("errorMessage", "Progress not found for the given ID.");
+            return "error";
+        }
+        model.addAttribute("progressUpdate", progress);
+        return "project/progress/Progress_view";
+    }
 
     @GetMapping("/editProgressUpdate/{id}")
     public String editProgressUpdateForm(@PathVariable("id") Long progressUpdateId, Model model) {
@@ -97,6 +109,7 @@ public class ProgressUpdateController {
         model.addAttribute("progressUpdate", progressUpdate);  // Ensure the object is added to the model
         return "project/progress/EditProgressUpdate";
     }
+
 
     @PostMapping("/updateProgressUpdate/{id}")
     public String updateProgressUpdate(@PathVariable("id") Long progressUpdateId,

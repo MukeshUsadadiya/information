@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style1.css" />
+</head>
+<body>
+<div class="dashboard">
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <img src="../static/images/logo.png" alt="Logo" class="logo"/>
+      <h3 class="hover">AVIRANT </br> ENTERPRISES</h3>
+    </div>
+    <ul class="nav-links">
+      <li class="active" data-page="dashboard"><a href="#dashboard"><i class="fas fa-home"></i>Dashboard</a></li>
+      <li data-page="Assign Forms"><a href="/admin/forms/assign"><i class="fas fa-users"></i>Assign Forms</a></li>
+      <li data-page="Manage Users"><a href="/allUsers"><i class="fas fa-users"></i>Manage Users</a></li>
+      <li data-page="Manage Projects"><a href="/userforms"><i class="fa-solid fa-list-check" style="color: #000000;"></i>Manage Projects</a></li>
+      <li data-page="View Forms"><a href="/admin/forms/assigned"><i class="fa-solid fa-eye" style="color: #000000;"></i>View Assign Forms</a></li>
+      <li data-page="settings"><a href="#settings"><i class="fas fa-cog"></i>Settings</a></li>
+      <button type="submit" class="button-2" role="button" onclick="showLogoutModal()">Logout</button>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <header></header>
+  </main> <!-- Closing main content -->
+
+</div> <!-- Closing dashboard -->
+
+<!-- Custom Logout Modal -->
+<div id="logoutModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <p >Are you sure you want to log out?</p>
+    </div>
+    <div class="modal-buttons">
+      <button class="modal-button modal-button-confirm" onclick="confirmLogout()">Yes, Log Out</button>
+      <button class="modal-button modal-button-cancel" onclick="closeLogoutModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  header {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-image: url("/static/images/breadcrum.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<script>
+function showLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'flex'; // Show the modal
+}
+
+function closeLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'none'; // Close the modal
+}
+
+function confirmLogout() {
+    window.location.href = '/logout'; // Redirect to logout endpoint
+}
+</script>
+
+</body>
+</html>

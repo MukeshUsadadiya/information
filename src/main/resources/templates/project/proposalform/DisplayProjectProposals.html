@@ -1,69 +1,222 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
-    <title>Project Proposals</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <!-- Bootstrap Icons CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Project Proposals</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
 
-        h2 {
-            color: #343a40;
-            font-weight: bold;
-        }
+    .container {
+      margin: 30px auto;
+      max-width: 90%;
+      width: 1200px;
+    }
 
-        .table thead {
-            background-color: #007bff;
-            color: white;
-        }
+    h2 {
+      text-align: center;
+      color: #343a40;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
-        /* Button hover effects */
-        .btn:hover {
-            transform: scale(1.1); /* Slightly enlarge */
-            transition: transform 0.3s ease-in-out;
-        }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
 
-        /* Button click animation */
-        .btn:active {
-            transform: scale(0.95); /* Slightly shrink */
-            transition: transform 0.1s ease-in-out;
-        }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        /* Adjust spacing between buttons */
-        .action-buttons {
-            display: flex;
-            gap: 10px; /* Added consistent gap between buttons */
-            align-items: center; /* Align buttons in the center */
-        }
+    .table thead {
+      background-color: #4a00e0;
+      color: #ffffff;
+    }
 
-        /* Add row animation */
-        tr {
-            opacity: 0;
-            transform: translateX(-20px);
-            animation: fadeIn 0.5s ease-out forwards;
-        }
+    .table th,
+    .table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #e9ecef;
+    }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-    </style>
+    .table th {
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .table tbody tr:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+
+    .table tbody tr:hover {
+      background-color: #e9ecef;
+    }
+
+    /* Standardized Action Button Styles */
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #4a00e0;
+      text-decoration: none;
+      margin-right: 8px;
+      transition: all 0.3s ease;
+      box-shadow: none;
+    }
+
+    .action-btn:hover {
+      background-color: #8e2de2;
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+    }
+
+    .delete-btn:hover {
+      background-color: #ff6f61;
+    }
+
+    .profile-btn {
+      background-color: #17a2b8;
+    }
+
+    .profile-btn:hover {
+      background-color: #20c997;
+    }
+
+    /* Back Button */
+    .back-button-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .back-button-container a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #4a00e0;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .back-button-container a:hover {
+      background-color: #8e2de2;
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-button-container a i {
+      margin-left: 8px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .table th,
+      .table td {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .action-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+
+      .back-button-container a {
+        font-size: 14px;
+        padding: 8px 15px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .table,
+      .table thead,
+      .table tbody,
+      .table th,
+      .table td,
+      .table tr {
+        display: block;
+      }
+
+      .table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+
+      .table tr {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .table td {
+        border: none;
+        padding: 10px;
+        text-align: right;
+        position: relative;
+        font-size: 14px;
+      }
+
+      .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        text-align: left;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+
+    .d-flex {
+      display: flex;
+      align-items: center;
+    }
+
+    .d-flex a {
+      margin-right: 8px;
+    }
+
+  </style>
 </head>
+
 <body>
 
-<div class="container mt-5">
-    <h2 class="text-center">All Project Proposals</h2>
+<div class="container">
+    <h2>All Project Proposals</h2>
 
-    <!-- Responsive Table Wrapper -->
-    <div class="table-responsive mt-3">
-        <table class="table table-striped">
-            <thead class="bg-primary text-dark">
+    <!-- Project Proposal Table -->
+    <div class="card">
+        <table class="table">
+            <thead>
             <tr>
                 <th>Project Title</th>
                 <th>Description</th>
@@ -81,63 +234,54 @@
                 <td th:text="${proposal.department}">Department</td>
                 <td th:text="${proposal.startDate}">Start Date</td>
                 <td th:text="${proposal.estimatedBudget}">Estimated Budget</td>
-                <td>
-                    <a th:if="${proposal.attachment != null and !#strings.isEmpty(proposal.attachment)}"
-                       th:href="@{/uploads/{filename}(filename=${proposal.attachment})}"
-                       th:text="${proposal.attachment}">Download</a>
-                    <span th:if="${proposal.attachment == null or #strings.isEmpty(proposal.attachment)}">No attachment</span>
-                </td>
-                <td class="d-flex justify-content-start">
+                <td >
                     <!-- View PDF Button -->
                     <button th:if="${proposal.attachment != null and !#strings.isEmpty(proposal.attachment) and #strings.endsWith(proposal.attachment, '.pdf')}"
-                            class="btn btn-primary btn-sm me-2"
+                            class="action-btn"
                             th:data-pdf-url="@{/viewPdf/{filename}(filename=${proposal.attachment})}"
                             onclick="viewPdf(this)">
-                        <i class="bi bi-eye"></i> View PDF
+                        <i class="fas fa-eye"></i>
                     </button>
-
-                    <!-- Update Button -->
-                    <a th:href="@{/editProjectProposal/{id}(id=${proposal.id})}" class="btn btn-warning btn-sm me-2">
-                        <i class="bi bi-pencil"></i> Edit
+                </td>
+                <td class="d-flex justify-content-start align-items-center">
+                    <!-- Edit Button -->
+                    <a th:href="@{/editProjectProposal/{id}(id=${proposal.id})}" class="action-btn">
+                        <i class="fas fa-edit"></i>
                     </a>
-
-                    <!-- Delete Button -->
+                    <a th:href="@{/projectProposal/{id}(id=${proposal.id})}" class="action-btn profile-btn">
+                        <i class="fas fa-user"></i>
+                    </a>
                     <form th:action="@{/deleteProposal/{id}(id=${proposal.id})}" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-danger btn-sm me-2">
-                            <i class="bi bi-trash"></i> Delete
+                        <button type="submit" class="action-btn delete-btn">
+                            <i class="fas fa-trash"></i>
                         </button>
                     </form>
-
-                    <!-- Profile Button -->
-                    <a th:href="@{/projectProposal/{id}(id=${proposal.id})}" class="btn btn-info btn-sm">
-                        <i class="bi bi-person"></i> Profile
-                    </a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <!-- Button to return to Project Proposal Form -->
-    <div class="text-center mt-4">
-        <a href="/projectProposalForm" class="btn btn-primary btn-lg">Back to Project Proposal Form</a>
+    <!-- Back to Home Button -->
+    <div class="back-button-container">
+        <a href="/adminDashboard">
+            Back to <i class="fas fa-home"></i>
+        </a>
     </div>
+
 </div>
 
 <!-- JavaScript to handle PDF viewing -->
 <script>
-    function viewPdf(button) {
-        const pdfUrl = button.getAttribute('data-pdf-url');
-        if (pdfUrl) {
-            window.open(pdfUrl, '_blank');  // Opens the PDF in a new tab
-        } else {
-            alert('PDF not available');
-        }
+  function viewPdf(button) {
+    const pdfUrl = button.getAttribute('data-pdf-url');
+    if (pdfUrl) {
+      window.open(pdfUrl, '_blank');  // Opens the PDF in a new tab
+    } else {
+      alert('PDF not available');
     }
+  }
 </script>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

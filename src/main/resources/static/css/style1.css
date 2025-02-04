@@ -495,3 +495,53 @@ transform: scale(1.05) rotate(-1deg);
         background-color: #0955ff;
         color: #fff;
     }
+
+    /* Custom Modal Styles */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.4);
+                padding-top: 100px;
+                justify-content: center;
+                align-items: center;
+            }
+            .modal-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                width: 400px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                text-align: center;
+            }
+            .modal-header {
+                color: black;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            .modal-buttons {
+                margin-top: 20px;
+            }
+            .modal-button {
+                padding: 10px 20px;
+                border: none;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 5px;
+                margin: 5px;
+            }
+            .modal-button-confirm {
+                background-color: #ff4c4c;
+                color: white;
+            }
+            .modal-button-cancel {
+                background-color: #cccccc;
+                color: black;
+            }
+            .modal-button:hover {
+                opacity: 0.9;
+            }

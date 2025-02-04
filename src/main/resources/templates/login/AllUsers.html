@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #343a40;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table thead {
+            background-color: #4a00e0;
+            color: #ffffff;
+        }
+
+        table th, table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        table th {
+            font-weight: 600;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+        table tbody tr:last-child td {
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #4a00e0;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            margin: 20px auto;
+            text-decoration: none; /* Remove underline from the <a> tag */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+        }
+
+        .btn-primary:hover {
+            background-color: #8e2de2;
+            transform: scale(1.1); /* Scales the button */
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+        .btn-primary i {
+            margin-left: 8px; /* Add space before the icon */
+        }
+    </style>
+</head>
+<body>
+<h1>All Registered Users</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the users -->
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.username}">JohnDoe</td>
+        <td th:text="${user.email}">johndoe@example.com</td>
+        <td th:text="${user.role}">USER</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Back to User Dashboard Button -->
+<a href="/adminDashboard" class="btn btn-primary">
+    Back to <i class="fas fa-home"></i>
+</a>
+
+</body>
+</html>

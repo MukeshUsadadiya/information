@@ -3,7 +3,6 @@ package com.avirantEnterprises.information_collector.service.login;
 import com.avirantEnterprises.information_collector.model.login.User;
 import com.avirantEnterprises.information_collector.repository.login.UserLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +21,14 @@ public class UserLoginService {
         this.userLoginRepository = userLoginRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
     public List<User> getAllUsers() {
-        return userLoginRepository.findAll(); // Fetch all user records
+        return userLoginRepository.findAll();
     }
+
     public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypt password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("USER");
         userLoginRepository.save(user);
     }
 
@@ -36,7 +38,7 @@ public class UserLoginService {
     }
 
     public String generateOtp() {
-        return String.valueOf(new Random().nextInt(899999) + 100000); // 6-digit random number
+        return String.valueOf(new Random().nextInt(899999) + 100000);
     }
 
     public boolean verifyOtp(String email, String otp) {
@@ -46,12 +48,20 @@ public class UserLoginService {
                 && user.getOtpExpiry() != null
                 && user.getOtpExpiry().isAfter(LocalDateTime.now());
     }
+
     public void updateOtp(String email, String otp) {
         User user = findByEmail(email);
         if (user != null) {
             user.setOtp(otp);
-            user.setOtpExpiry(LocalDateTime.now().plusMinutes(5)); // OTP valid for 5 minutes
+            user.setOtpExpiry(LocalDateTime.now().plusMinutes(5));
             userLoginRepository.save(user);
         }
+    }
+    public Optional<User> findByUsername(String username) {
+        return userLoginRepository.findByUsername(username);  // Fetch user from the database
+    }
+
+    public boolean checkPassword(String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword); // This compares the raw password with the encoded one
     }
 }
